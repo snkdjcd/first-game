@@ -1,0 +1,52 @@
+from PyQt5.QtCore import*
+from PyQt5.QtWidgets import*
+
+def win():
+    win = QMessageBox()
+    win.setText("Ви виграли зустріч з творцями каналу!")
+    win.exec()
+def lose():
+    win = QMessageBox()
+    win.setText("Пощастить іншим разом!")
+    win.exec()
+
+app = QApplication([])
+
+window = QWidget()
+window.resize(400, 200)
+window.setWindowTitle("Конкурс від Crazy People")
+
+question = QLabel("В якому році канал отримав 'золоту кнопку' від YouTube?")
+ans1 = QRadioButton("- PewDiePie")
+ans2 = QRadioButton("- Рет і Лінк")
+ans3 = QRadioButton("- SlivkiShow")
+ans4 = QRadioButton("- TheBrianMaps")
+ans5 = QRadioButton("- Mister Max")
+ans6 = QRadioButton("- EeOneGuy")
+
+line = QVBoxLayout()
+line1 = QHBoxLayout()
+line2 = QHBoxLayout()
+line3 = QHBoxLayout()
+line.addWidget(question, alignment=Qt.AlignCenter)
+line1.addWidget(ans1, alignment=Qt.AlignCenter)
+line1.addWidget(ans2, alignment=Qt.AlignCenter)
+line2.addWidget(ans3, alignment=Qt.AlignCenter)
+line2.addWidget(ans4, alignment=Qt.AlignCenter)
+line3.addWidget(ans5, alignment=Qt.AlignCenter)
+line3.addWidget(ans6, alignment=Qt.AlignCenter)
+
+line.addLayout(line1)
+line.addLayout(line2)
+line.addLayout(line3)
+
+window.setLayout(line)
+
+ans1.clicked.connect(win)
+ans2.clicked.connect(lose)
+ans3.clicked.connect(lose)
+ans4.clicked.connect(lose)
+ans5.clicked.connect(lose)
+ans6.clicked.connect(lose)
+window.show()
+app.exec()
