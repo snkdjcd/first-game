@@ -1,0 +1,34 @@
+from PyQt5.QtCore import*
+from PyQt5.QtWidgets import*
+from random import randint
+
+def click():
+    num = randint(1, 100)
+    number.setText(str(num))
+    
+def show_winner():
+    text.setText("Переможець:")
+    
+
+app = QApplication([])
+
+window = QWidget()
+window.resize(400, 200)
+window.setWindowTitle("Визначник переможця")
+
+text = QLabel("Натисни, щоб дізнатися переможця")
+number = QLabel("?")
+
+button = QPushButton("Згенерувати!")
+
+line = QVBoxLayout()
+line.addWidget(text, alignment=Qt.AlignCenter)
+line.addWidget(number, alignment=Qt.AlignCenter)
+line.addWidget(button, alignment=Qt.AlignCenter)
+window.setLayout(line)
+
+button.clicked.connect(show_winner)
+
+button.clicked.connect(click)
+window.show()
+app.exec()
