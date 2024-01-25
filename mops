@@ -1,0 +1,29 @@
+from PIL import Image
+from PIL import ImageFilter
+from PIL import ImageEnhance
+
+with Image.open("original.jpg") as file:
+    print(f"Розмір: {file.size}")
+    print(f"Колір: {file.mode}")
+    print(f"Формат: {file.format}")
+    # file.show()
+
+    file_gray = file.convert('L')
+    file_gray.save("original.jpg")
+    # file_gray.show()
+
+    file_blured = file_gray.filter(ImageFilter.BLUR)
+    file_blured.save("original.jpg")
+    # file_blured.show()
+
+    file_up = file_blured.transpose(Image.ROTATE_180)
+    file_up.save("original.jpg")
+    # file_up.show()
+
+    file_mirror = file_up.transpose(Image.FLIP_LEFT_RIGHT)
+    file_mirror.save("original.jpg")
+    # file_mirror.show()
+
+    file_contrast = ImageEnhance.Contrast("original.jpg")
+    file_contrast.save("original.jpg")
+    file_contrast.show()
