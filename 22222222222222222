@@ -10,6 +10,16 @@ class ImageEditor(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.workdir = ""
         self.ui.btn_dir.clicked.connect(self.show_files)
+        self.ui.btn_right.clicked.connect(self.file_right)
+        self.ui.btn_left.clicked.connect(self.file_left)
+        self.ui.btn_sharp.clicked.connect(self.file_shrap)
+        self.ui.btn_mirror.clicked.connect(self.file_mirror)
+        self.ui.btn_bw.clicked.connect(self.file_bw)
+        self.ui.btn_contour.clicked.connect(self.file_contour)
+        self.ui.btn_detail.clicked.connect(self.file_detail)
+        self.ui.btn_blur.clicked.connect(self.file_blur)
+        self.ui.btn_emboss.clicked.connect(self.file_emboss)
+        self.ui.btn_smooth.clicked.connect(self.file_smooth)
     def choose_dir(self):
         self.workdir = QtWidgets.QFileDialog.getExistingDirectory()
 
@@ -35,7 +45,62 @@ class ImageEditor(QtWidgets.QMainWindow):
             win.setText("Шлях до файлів обрано не вірно")
             win.exec()
             
+    def file_right(self):
+        file_right = self.file.transpose(Image.ROTATE_270)
+        file_right.save(self)
+        
+        
+            
+    def file_left(self):
+        file_left = self.file.transpose(Image.ROTATE_90)
+        file_left.save(self)
+        
+        
+        
+    def file_shrap(self):
+        file_sharp = self.file.filter(ImageFilter.SHARPEN)
+        file_sharp.save(self)
+        
+        
+        
+    def file_mirror(self):
+        file_mirror = self.file.transpose(Image.FLIP_LEFT_RIGHT)
+        file_mirror.save(self)
+        
+
+
+    def file_bw(self):
+        file_bw = self.file.convert('L')
+        file_bw.save(self)
+        
+        
+    def file_contour(self):
+        file_contour = self.file.filter(ImageFilter.CONTOUR)
+        file_contour.save(self)
+        
     
+    def file_detail(self):
+        file_detail = self.file.filter(ImageFilter.DETAIL)
+        file_detail.save(self)
+        
+        
+    def file_blur(self):
+        file_blur = self.file.filter(ImageFilter.BLUR)
+        file_blur.save(self)
+        
+        
+    def file_emboss(self):
+        file_emboss = self.file.filter(ImageFilter.EMBOSS)
+        file_emboss.save(self)
+    
+    
+    
+    def file_smooth(self):
+        file_smooth = self.file.filter(ImageFilter.SMOOTH)
+        file_smooth.save(self)
+        
+        
+        
 
 
 app = QtWidgets.QApplication([])
