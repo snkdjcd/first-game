@@ -2,7 +2,7 @@ import pygame
 
 
 win_width = 1200
-win_height = 700
+win_height = 670 #700 
 FPS = pygame.time.Clock()
 
 window = pygame.display.set_mode((win_width, win_height))
@@ -66,6 +66,18 @@ class Wall():
         self.color = color
     def draw(self):
         pygame.draw.rect(window, self.color, self.rect)
+
+class Label():
+    def __init__(self, x, y, back, text_color):
+        self.rect = pygame.Rect(x,y)
+        self.back = back
+        self.text_color = text_color
+    def fill(self):
+        pygame.draw.rect(window, self.back, self.rect)
+    def set_text(self, text, fsize = 14):
+        self.image = pygame.font.SysFont("verdana", fsize).render(text)
+    def draw(self):
+        pygame.draw.rect(window, self.rect)
     
 
     
@@ -75,25 +87,22 @@ enemy = Enemy("enemy.png", win_width//1.7, win_height//2, win_width//8, win_widt
 gold = Settings("gold.png", win_width-150, win_height-150, 100, 100)
 walls = [
     Wall(0, 0, win_width, 5, (255, 255, 0)),
-    Wall(250, 250, 5, win_height-120, (255, 255, 0)),
-    Wall(250, 0, 5, 120, (255, 255, 0)),
+    # Wall(250, 250, 5, win_height-120, (255, 255, 0)),
+    # Wall(250, 0, 5, 120, (255, 255, 0)),
     Wall(0, 665, win_width, 5, (255, 255, 0)),
     Wall(0, 0, 5, win_height, (255, 255, 0)),
     Wall(1195, 0, 5, win_height, (255, 255, 0)),
-    Wall(250, 120, 240, 5, (255, 255, 0)),
-    Wall(490, 120, 5, 320, (255, 255, 0)),
-    Wall(250, 250, 125, 5, (255, 255, 0)),
-    Wall(370, 250, 5, 300, (255, 255, 0)),
-    Wall(370, 550, 125, 5, (255, 255, 0)),
-    Wall(490, 550, 380, 5, (255, 255, 0)),
-    Wall(490, 440, 240, 5, (255, 255, 0)),
-    Wall(730, 120, 5, 325, (255, 255, 0)),
-    Wall(630, 120, 300, 5, (255, 255, 0)),
-    Wall(630, 120, 5, 225, (255, 255, 0)),
+    # Wall(250, 120, 250, 5, (255, 255, 0)),
+    # Wall(500, 120, 5, 310, (255, 255, 0)),
+    # Wall(250, 250, 125, 5, (255, 255, 0)),
+    # Wall(370, 250, 5, 305, (255, 255, 0)),
+    # Wall(500, 550, 380, 5, (255, 255, 0)),
+    # Wall(880, 120, 5, 435, (255, 255, 0)),
+    # Wall(500, 430, 260, 5, (255, 255, 0)),
+    # Wall(755, 120, 5, 315, (255, 255, 0)),
+    # Wall(630, 120, 130, 5, (255, 255, 0)),
+    # Wall(630, 120, 5, 210, (255, 255, 0)),
 ]
-
-
-
 
 game = True
 finish = False
@@ -101,18 +110,36 @@ finish = False
 pygame.mixer.init()
 pygame.mixer.music.load("music.mp3")
 pygame.mixer.music.play()
-
+    
 while game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game=False
-
+    
+        
     if finish != True:
         back.draw()
         for w in walls:
             if p1.rect.colliderect(w.rect):
+                lose = Label(600, 300, back, (0, 250, 0))
+                lose.set_text("You lose!", 60)
+                lose.draw()
                 finish = True
             w.draw()
+            
+        # if p1.rect.colliderect(enemy.rect):
+        #     lose = Label(150, 200, 50, 50, back)
+        #     lose.set_text("You lose!", 60, (0, 250, 0))
+        #     lose.draw()
+        #     finish = True
+            
+        # if p1.rect.colliderect(gold.rect):
+        #     win = Label(150, 200, 50, 50, back)
+        #     win.set_text("You win!", 60, (0, 250, 0))
+        #     win.draw()
+        #     finish = True
+                
+           
         p1.move()
         p1.draw()
 
