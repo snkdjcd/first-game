@@ -59,18 +59,19 @@ class Enemy(Player):
             self.rect.x -= self.speed
 
 back = Settings("back.jpg", 0,0, win_width, win_height)
-# p1 = Player("player.png", 10, win_height//2, 90, 90, 5)
-# enemy = Enemy("enemy.png", win_width//1.7, win_height//2, win_width//8, win_width//8, 4)
+p1 = Player("player.png", 10, win_height//2, 130, 130, 5)
+enemy = Enemy("enemy.png", win_width//1.7, win_height//2, win_width//10, win_width//10, 4)
+boss = Enemy("boss.png", win_width//1.7, win_height//2, win_width//5, win_width//5, 4)
 
 game = True
 finish = False
 game_over = False
 
 pygame.mixer.init()
-pygame.mixer.music.load("music.mp3")
+pygame.mixer.music.load("music.wav")
 pygame.mixer.music.play()
-win = pygame.mixer.Sound("win.wav")
-lose = pygame.mixer.Sound("lose.wav")
+# win = pygame.mixer.Sound("win.wav")
+# lose = pygame.mixer.Sound("lose.wav")
 
 while game:
     for event in pygame.event.get():
@@ -78,9 +79,11 @@ while game:
             game=False
     if finish != True:
         back.draw()
-        # p1.move()
-        # p1.draw()
-        # enemy.draw()
+        p1.move()
+        p1.draw()
+        enemy.draw()
+        boss.draw()
+        
 
     pygame.display.flip()
     FPS.tick(40)
